@@ -61,6 +61,17 @@ st.markdown(
         div[data-testid="stSidebar"] {
             min-width: 100% !important;
             max-width: 100% !important;
+            padding-top: 0.2rem !important;
+            margin-top: 0 !important;
+        }
+
+        [data-testid="stSidebarUserContent"] {
+            padding-top: 0.3rem !important;
+        }
+
+        [data-testid="stHeader"] {
+            height: 0 !important;
+            min-height: 0 !important;
         }
 
         .stButton > button,
@@ -730,11 +741,20 @@ st.sidebar.markdown(
 
 logo_sidebar_path = resolve_asset_path("logo.png", "logo.PNG")
 if logo_sidebar_path and os.path.exists(logo_sidebar_path):
-    logo_cols = st.sidebar.columns([1, 1.6, 1])
-    with logo_cols[1]:
-        st.image(logo_sidebar_path, width=72)
+    with open(logo_sidebar_path, "rb") as img_file:
+        encoded = base64.b64encode(img_file.read()).decode("utf-8")
+    st.sidebar.markdown(
+        f"""
+        <div style='display:flex; justify-content:center; align-items:center; width:100%; margin-top:6px; margin-bottom:10px;'>
+            <img src='data:image/png;base64,{encoded}' style='width:72px; height:auto; display:block; margin:0 auto;' />
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 else:
     st.sidebar.markdown("<h2 style='text-align: center; margin-top: 12px; margin-bottom: 16px;'>🛡️</h2>", unsafe_allow_html=True)
+
+st.sidebar.markdown("<div style='height: 6px;'></div>", unsafe_allow_html=True)
 
 st.sidebar.markdown("---")
 
@@ -1023,6 +1043,7 @@ if st.session_state.login_sukses:
 
 else:
     st.sidebar.write("🔒 Status: Silakan Masuk")
+    st.sidebar.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True)
 st.sidebar.markdown("---")
 
 # =========================================================================
