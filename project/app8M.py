@@ -710,29 +710,13 @@ if "list_opsi_m20" not in st.session_state:
 # 🧭 SIDEBAR NAVIGASI TERPADU (WHITE LABEL + RAPOR GLOBAL PINTAR)
 # =========================================================================
 # Logo di bagian atas sidebar - centered dengan proper spacing
-st.sidebar.markdown(
-    """
-    <style>
-    [data-testid="stSidebar"] [data-testid="stImage"] {
-        display: flex !important;
-        justify-content: center !important;
-        width: 100% !important;
-        margin: 0 auto !important;
-    }
-    [data-testid="stSidebar"] img {
-        display: block !important;
-        margin: 0 auto !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
 logo_sidebar_path = resolve_asset_path("logo.png", "logo.PNG")
 if logo_sidebar_path and os.path.exists(logo_sidebar_path):
-    logo_cols = st.sidebar.columns([1, 1.6, 1])
-    with logo_cols[1]:
-        st.image(logo_sidebar_path, width=72)
+    st.sidebar.markdown("<div style='text-align: center; margin-top: 12px; margin-bottom: 16px;'>", unsafe_allow_html=True)
+    col_logo_sidebar_l, col_logo_sidebar_c, col_logo_sidebar_r = st.sidebar.columns([1, 2, 1], gap="small")
+    with col_logo_sidebar_c:
+        st.image(logo_sidebar_path, width=64)
+    st.sidebar.markdown("</div>", unsafe_allow_html=True)
 else:
     st.sidebar.markdown("<h2 style='text-align: center; margin-top: 12px; margin-bottom: 16px;'>🛡️</h2>", unsafe_allow_html=True)
 
@@ -745,11 +729,6 @@ if st.session_state.profile_saved_notification:
 
 # 5. 👉 DASBOR PROFIL IDENTITAS PREMIUM (MENAMPILKAN NAMA, INSTITUSI, EMAIL, NO HP) - SEBELUM MODUL
 if st.session_state.login_sukses:
-    if st.sidebar.button("🏠 Kembali ke Beranda Utama", use_container_width=True, key="home_btn_top"):
-        st.session_state.intip_rapor_global = False
-        st.session_state.halaman_sekarang = 0
-        st.rerun()
-
     # Tarik data profil lengkap langsung dari brankas database SQLite
     conn = hubungkan_db()
     cursor = conn.cursor()
@@ -954,6 +933,11 @@ if st.session_state.login_sukses:
     </style>
     """, unsafe_allow_html=True)
     
+    if st.sidebar.button("🏠 Kembali ke Beranda Utama", use_container_width=True, key="home_btn"):
+        st.session_state.intip_rapor_global = False
+        st.session_state.halaman_sekarang = 0
+        st.rerun()
+        
     # 👉 TOMBOL INTIP RAPOR GLOBAL (BISA DIKLIK KAPAN SAJA)
     if st.sidebar.button("📊 Lihat Rapor Keseluruhan Saya", use_container_width=True, key="rapor_btn"):
         st.session_state.intip_rapor_global = True
