@@ -70,8 +70,8 @@ st.markdown(
         }
 
         [data-testid="stHeader"] {
-            height: 0 !important;
-            min-height: 0 !important;
+            height: auto !important;
+            min-height: 2.75rem !important;
         }
 
         .stButton > button,
@@ -212,11 +212,12 @@ def render_brand_header(width=220, subtitle_color="#3A3A3A"):
                 padding-bottom: 0rem !important;
             }
             [data-testid="stSidebarUserContent"] {
-                padding-top: 2rem !important;
+                padding-top: 0.5rem !important;
             }
             header {
-                visibility: hidden !important;
-                height: 0px !important;
+                visibility: visible !important;
+                height: auto !important;
+                min-height: 2.75rem !important;
             }
         </style>
         """,
