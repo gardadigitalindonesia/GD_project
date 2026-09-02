@@ -221,25 +221,25 @@ def render_brand_header(width=220, subtitle_color="#3A3A3A"):
                 min-height: 2.75rem !important;
             }
             
-            /* 📊 KUNCI FIX TOMBOL INDOMARET/HP: Memaksa teks berdiri tegak lurus tepat di tengah kotak button */
+                        /* 📊 KUNCI PRESET PREMIUM: Memaksa teks tombol turun lagi ke bawah stands lurus di tengah vertikal */
             .stButton > button {
                 display: inline-flex !important;
                 align-items: center !important;         /* Teks tegak lurus di tengah vertikal */
                 justify-content: center !important;       /* Teks and emoji tepat di tengah horizontal */
                 text-align: center !important;
                 line-height: 1 !important;               /* Matikan tinggi baris kaku bawaan */
-                min-height: 46px !important;             /* Tinggi tombol empuk pas untuk jempol HP */
-                padding-top: 12px !important;            /* Ruang napas atas */
-                padding-bottom: 14px !important;         /* Ruang napas bawah agar teks tidak mepet ke atas */
+                min-height: 48px !important;             /* Tinggi tombol sedikit dinaikkan agar ruang lebih lapang */
+                padding-top: 16px !important;            /* 🔄 Jarak atas dinaikkan dari 12px ke 16px agar teks terdorong ke bawah */
+                padding-bottom: 14px !important;         /* Ruang napas bawah penyeimbang */
                 font-size: 15px !important;
                 font-weight: 600 !important;
                 border-radius: 6px !important;
             }
+
         </style>
         """,
         unsafe_allow_html=True
     )
-
 
     # 3. AREA RENDERING LOGO KEBANGGAAN ANDA
     logo_main_path = resolve_asset_path("logo.png", "logo.PNG")
