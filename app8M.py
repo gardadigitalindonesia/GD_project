@@ -857,12 +857,44 @@ if st.session_state.login_sukses:
     </style>
     """,
     unsafe_allow_html=True
+
+)
+# =========================================================================
+# 🎯 PEMBAJAK FOKUS GLOBAL: MEMAKSA SCROLL AUTOMATIC SELALU MENDARAT DI ATAS
+# =========================================================================
+# 1. Suntikkan CSS khusus agar komponen text_input umpan benar-benar tidak terlihat oleh mata user
+st.markdown(
+    """
+    <style>
+        .pencuri-fokus-garda, .pencuri-fokus-garda div, .pencuri-fokus-garda input {
+            opacity: 0 !important;
+            height: 0px !important;
+            width: 0px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: none !important;
+            pointer-events: none !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
 )
 
-    if st.sidebar.button("🏠 Kembali ke Beranda Utama", use_container_width=True, key="home_btn_top"):
-        st.session_state.intip_rapor_global = False
-        st.session_state.halaman_sekarang = 0
-        st.rerun()
+# 2. Letakkan wadah pencuri fokus di baris utama tertinggi halaman kuis
+st.markdown("<div class='pencuri-fokus-garda'>", unsafe_allow_html=True)
+# Menggunakan st.text_input dengan label kosong dan mematikan visibilitasnya
+st.text_input(
+    label="Fokus Puncak", 
+    key=f"fokus_top_page_halaman_{st.session_state.halaman_sekarang}", 
+    label_visibility="collapsed"
+)
+st.markdown("</div>", unsafe_allow_html=True)
+
+
+if st.sidebar.button("🏠 Kembali ke Beranda Utama", use_container_width=True, key="home_btn_top"):
+    st.session_state.intip_rapor_global = False
+    st.session_state.halaman_sekarang = 0
+    st.rerun()
 
     # Tarik data profil lengkap langsung dari brankas database SQLite
     conn = hubungkan_db()
