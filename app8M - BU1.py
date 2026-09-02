@@ -204,7 +204,7 @@ def render_brand_header(width=220, subtitle_color="#3A3A3A"):
     # 👉 1. KUNCI RAHASIA: Menaruh wadah kosong di puncak tertinggi halaman untuk menarik fokus scroll ke atas
     puncak_halaman = st.empty()
     
-        # 2. HANCURKAN BATAS ATAS STREAMLIT + FIX TOMBOL MEPET KE ATAS (RAMAH MOBILE)
+    # 2. HANCURKAN BATAS ATAS STREAMLIT (CSS TETAP KOKOH DAN DIALOKASIKAN AMAN)
     st.markdown(
         """
         <style>
@@ -220,26 +220,10 @@ def render_brand_header(width=220, subtitle_color="#3A3A3A"):
                 height: auto !important;
                 min-height: 2.75rem !important;
             }
-            
-            /* 📊 KUNCI FIX TOMBOL INDOMARET/HP: Memaksa teks berdiri tegak lurus tepat di tengah kotak button */
-            .stButton > button {
-                display: inline-flex !important;
-                align-items: center !important;         /* Teks tegak lurus di tengah vertikal */
-                justify-content: center !important;       /* Teks and emoji tepat di tengah horizontal */
-                text-align: center !important;
-                line-height: 1 !important;               /* Matikan tinggi baris kaku bawaan */
-                min-height: 46px !important;             /* Tinggi tombol empuk pas untuk jempol HP */
-                padding-top: 12px !important;            /* Ruang napas atas */
-                padding-bottom: 14px !important;         /* Ruang napas bawah agar teks tidak mepet ke atas */
-                font-size: 15px !important;
-                font-weight: 600 !important;
-                border-radius: 6px !important;
-            }
         </style>
         """,
         unsafe_allow_html=True
     )
-
 
     # 3. AREA RENDERING LOGO KEBANGGAAN ANDA
     logo_main_path = resolve_asset_path("logo.png", "logo.PNG")
