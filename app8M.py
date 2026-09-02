@@ -807,6 +807,58 @@ if st.session_state.profile_saved_notification:
 
 # 5. 👉 DASBOR PROFIL IDENTITAS PREMIUM (MENAMPILKAN NAMA, INSTITUSI, EMAIL, NO HP) - SEBELUM MODUL
 if st.session_state.login_sukses:
+    # 👉 TARUH DI BARIS UTAMA SETELAH LOGIN SUKSES AGAR TERKUNCI DI SEMUA MATERI DAN SIDEBAR
+st.markdown(
+    """
+    <style>
+        /* 1. Pembersihan Batas Atas Lembar Web */
+        .block-container {
+            padding-top: 2rem !important;
+            padding-bottom: 0rem !important;
+        }
+        [data-testid="stSidebarUserContent"] {
+            padding-top: 0.5rem !important;
+        }
+        header {
+            visibility: visible !important;
+            height: auto !important;
+            min-height: 2.75rem !important;
+        }
+
+        /* 📊 2. PENGUNCI ABADI TOMBOL RAMPING & RATA TENGAH (MEREBUT KENDALI DARI IFRAME MOBILE) */
+        .stButton > button, 
+        .stButton > button[data-baseweb="button"],
+        div[data-testid="stButton"] > button {
+            height: 40px !important;                 /* Tinggi ramping ideal di HP */
+            min-height: 40px !important;
+            max-height: 40px !important;
+            padding: 0px 16px !important;            /* Pangkas bengkak kontainer */
+            display: inline-flex !important;
+            align-items: center !important;         /* Tarik vertikal ke tengah */
+            justify-content: center !important;       /* Tarik horizontal ke tengah */
+            border-radius: 6px !important;
+            border: none !important;
+            line-height: 1 !important;
+        }
+
+        /* 🎯 3. SAPU BERSIH TEKS INTERNAL: Memaksa teks di dalam tombol oranye & abu-abu stands di tengah */
+        .stButton > button *, 
+        div[data-testid="stButton"] > button * {
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1 !important;              /* Matikan line-height kaku penyebab bengkak */
+            display: inline-flex !important;
+            align-items: center !important;         /* Rata tengah vertikal mutlak */
+            justify-content: center !important;
+            vertical-align: middle !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
     if st.sidebar.button("🏠 Kembali ke Beranda Utama", use_container_width=True, key="home_btn_top"):
         st.session_state.intip_rapor_global = False
         st.session_state.halaman_sekarang = 0
