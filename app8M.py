@@ -221,28 +221,40 @@ def render_brand_header(width=220, subtitle_color="#3A3A3A"):
                 min-height: 2.75rem !important;
             }
             
-                        /* 📊 KUNCI UTAMA: Mengunci tinggi tombol agar ramping & meratakan teks di tengah */
+                        /* 📊 1. Kunci Utama Tombol Biasa yang Sudah Sukses Ramping (Biarkan Tetap Utuh) */
             .stButton > button {
-                height: 42px !important;                 /* Mengunci tinggi tombol agar tetap ramping dan tidak gendut */
+                height: 42px !important;
                 min-height: 42px !important;
-                padding: 0px 16px !important;            /* Mematikan padding atas-bawah kaku penyebab bengkak */
+                padding: 0px 16px !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
                 border-radius: 6px !important;
             }
-
-            /* 🎯 JURUS PAMUNGKAS: Menyerang teks bagian dalam agar turun pas di tengah vertikal */
-            .stButton > button p, 
-            .stButton > button span,
-            .stButton > button div {
+            .stButton > button p, .stButton > button span, .stButton > button div {
                 margin: 0 !important;
                 padding: 0 !important;
-                line-height: 1 !important;              /* Memaksa tinggi baris teks seimbang */
+                line-height: 1 !important;
                 display: inline-block !important;
-                vertical-align: middle !important;       /* Memaksa teks rata tengah secara vertikal */
+                vertical-align: middle !important;
                 font-size: 14px !important;
                 font-weight: 600 !important;
+            }
+
+            /* 🎯 2. SUNTIKAN BARU: MERAMPINGKAN & MERATAKAN TENGAH TEKS PILIHAN MATERI KUIS (ST.RADIO) */
+            [data-testid="stRadio"] label {
+                padding-top: 6px !important;          /* Memotong padding gendut bawaan Streamlit Mobile */
+                padding-bottom: 6px !important;
+                min-height: auto !important;
+            }
+            
+            /* Menyerang teks paragraf di dalam pilihan ganda kuis agar turun pas di tengah */
+            [data-testid="stRadio"] [data-testid="stMarkdownContainer"] p {
+                margin: 0 !important;
+                padding-top: 2px !important;           /* Dorongan mikro agar teks turun stands center-aligned vertikal */
+                line-height: 1.3 !important;           /* Menjaga keterbacaan kalimat panjang di HP tetap rapi */
+                vertical-align: middle !important;
+                font-size: 14px !important;
             }
         </style>
         """,
