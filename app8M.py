@@ -2,6 +2,7 @@ import streamlit as st
 import sqlite3
 import streamlit.components.v1 as components  # 👉 PASTIKAN BARIS INI ADA DI PALING ATAS FILE
 import random
+import re
 import matplotlib.pyplot as plt
 import os
 import base64
@@ -383,7 +384,7 @@ def buat_sertifikat_modul1_pdf(nama_lengkap: str, instansi: str, tanggal_lulus: 
     # 9. FOOTER KECIL PENUTUP
     c.setFillColor(HexColor("#94A3B8"))
     c.setFont("Helvetica-Oblique", 9)
-    c.drawCentredString(width / 2, 88, "SaaS Perlindungan Aset Digital Bisnis & Personal Awareness")
+    c.drawCentredString(width / 2, 88, "SaaS Perlindungan Aset Digital Bisnis & Personal")
 
     c.save()
     return buffer.getvalue()
@@ -497,29 +498,40 @@ def validate_store_name(store_str, allow_empty=True):
 # =========================================================================
 # 🧠 DATABASE KUNCI JAWABAN MUTLAK (UNTUK VALIDASI SKOR)
 # =========================================================================
+def normalisasi_teks_jawaban(text):
+    if text is None:
+        return ""
+    text = text.lower()
+    text = text.replace("&", " dan ")
+    text = re.sub(r"\s+", " ", text)
+    text = text.replace(" and ", " dan ")
+    text = text.replace(" and", " dan")
+    text = text.replace("and ", "dan ")
+    text = text.replace("dan ", " dan ")
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
 KUNCI_MATERI = {
     "m1": "Manusia memiliki celah emosi (panik/lengah) yang jauh lebih mudah dimanipulasi daripada menembus pertahanan kode keamanan digital bank.",
     "m2": "Mengabaikan SMS tersebut, lalu mengecek saldo secara mandiri lewat aplikasi Mobile Banking resmi atau datang ke mesin ATM terdekat.",
     "m3": "Memastikan lambang centang hijau resmi berada di sebelah kanan nama profil akun, bukan di dalam gambar foto profil bulatan.",
     "m4": "Mematikan telepon, langsung menghubungi nomor HP anak Anda secara mandiri, dan menyadari bahwa polisi asli tidak pernah meminta uang damai atau menyuruh warga berutang di Paylater.",
-    "m5": "Menolak menginstal file tersebut, langsung menghapus pesan, and memeriksa status tilang secara mandiri melalui situs resmi ETLE Korlantas Polri menggunakan nomor pelat kendaraan.",
+    "m5": "Menolak menginstal file tersebut, langsung menghapus pesan, dan memeriksa status tilang secara mandiri melalui situs resmi ETLE Korlantas Polri menggunakan nomor pelat kendaraan.",
     "m6": "Menghapus pesan tersebut dan mengabaikannya, karena instansi pajak resmi tidak pernah mengirimkan dokumen penagihan denda atau detail pajak dalam format aplikasi APK lewat WhatsApp pribadi.",
     "m7": "Mengabaikan pesan WhatsApp tersebut dan memblokir nomornya, karena surat panggilan sidang resmi selalu dikirim melalui surat fisik pos tercatat ke alamat rumah.",
     "m8": "Keluar dari chat WhatsApp tersebut, lalu membuka aplikasi atau website resmi Seller Center marketplace secara mandiri untuk mengecek status toko yang sebenarnya.",
-    "m9": "Mengabaikan pesan hoaks tersebut, tidak ikut menyebarkannya, and mengecek kebenaran informasi melalui situs resmi Bank Indonesia atau portal berita nasional yang terpercaya.",
-    "m10": "Menghapus pesan tersebut, tidak mengklik tautan apa pun, and memverifikasi info bantuan sosial secara mandiri melalui situs resmi Cek Bansos Kemensos RI atau dinas sosial setempat.",
-    "m11": "Segera keluar dari grup tersebut, mengabaikan tawaran keuntungan yang tidak masuk akal, and tidak mentransfer uang sepeser pun karena itu adalah modus penipuan investasi skema Ponzi.",
+    "m9": "Mengabaikan pesan hoaks tersebut, tidak ikut menyebarkannya, dan mengecek kebenaran informasi melalui situs resmi Bank Indonesia atau portal berita nasional yang terpercaya.",
+    "m10": "Menghapus pesan tersebut, tidak mengklik tautan apa pun, dan memverifikasi info bantuan sosial secara mandiri melalui situs resmi Cek Bansos Kemensos RI atau dinas sosial setempat.",
+    "m11": "Segera keluar dari grup tersebut, mengabaikan tawaran keuntungan yang tidak masuk akal, dan tidak mentransfer uang sepeser pun karena itu adalah modus penipuan investasi skema Ponzi.",
     "m12": "Mengabaikan instruksi SMS tersebut dan memblokir nomornya, karena pengumuman resmi pembagian dividen atau urusan saham emiten selalu dikirimkan lewat surat fisik resmi KSEI atau menu keterbukaan informasi aplikasi sekuritas resmi.",
     "m13": "Menolak memberikan kode 6 angka tersebut kepada siapa pun, karena itu adalah kode verifikasi OTP untuk mengambil alih akun WhatsApp Anda.",
     "m14": "Menolak mengunduh atau menginstal file tersebut, karena kurir resmi tidak pernah mengirimkan resi atau foto paket dalam format aplikasi .APK.",
     "m15": "Mengecek mutasi saldo masuk secara mandiri melalui aplikasi m-banking resmi toko, bukan hanya percaya pada gambar struk fisik yang dikirim pembeli.",
     "m16": "Segera mengaktifkan fitur Verifikasi Dua Langkah (Two-Factor Authentication) di menu pengaturan keamanan akun WhatsApp toko Anda.",
-    "m17": "Jangan buka attachment atau klik link dari email mencurigakan, langsung hubungi supplier/bank/marketplace melalui nomor resmi untuk konfirmasi, and laporkan email phishing ke tim keamanan.",
-    "m18": "Menggugat klaim dan meminta bukti identitas (foto KTP), tidak langsung mengirim dana atau data sensitif, and cek nomor telepon melalui website resmi sebelum memberikan informasi.",
-    "m19": "Hindari berbagi informasi bisnis di media sosial publik, verifikasi akun seller sebelum berkomunikasi, and laporkan akun imposter ke tim support platform marketplace.",
-    "m20": "Lakukan edukasi rutin untuk tim UMKM tentang taktik social engineering, buat checklist verifikasi sender/caller, and bangun budaya untuk selalu skeptis terhadap permintaan data/uang urgent."
-
-
+    "m17": "Jangan buka attachment atau klik link dari email mencurigakan, langsung hubungi supplier/bank/marketplace melalui nomor resmi untuk konfirmasi, dan laporkan email phishing ke tim keamanan.",
+    "m18": "Menggugat klaim dan meminta bukti identitas (foto KTP), tidak langsung mengirim dana atau data sensitif, dan cek nomor telepon melalui website resmi sebelum memberikan informasi.",
+    "m19": "Hindari berbagi informasi bisnis di media sosial publik, verifikasi akun seller sebelum berkomunikasi, dan laporkan akun imposter ke tim support platform marketplace.",
+    "m20": "Lakukan edukasi rutin untuk tim UMKM tentang taktik social engineering, buat checklist verifikasi sender/caller, dan bangun budaya untuk selalu skeptis terhadap permintaan data/uang urgent."
 }
 
 # =========================================================================
@@ -1523,7 +1535,9 @@ else:
 
         if terkunci:
             st.warning("🔒 Pilihan teks jawaban di atas otomatis dikunci dan DISENSOR TOTAL oleh sistem.")
-            if st.session_state.jawaban_user.get(mid) == KUNCI_MATERI[mid]:
+            jawaban_user_norm = normalisasi_teks_jawaban(st.session_state.jawaban_user.get(mid))
+            kunci_norm = normalisasi_teks_jawaban(KUNCI_MATERI[mid])
+            if jawaban_user_norm == kunci_norm:
                 st.success("✅ **BENAR!** Jawaban Anda sangat tepat. Insting keamanan digital Anda berfungsi sempurna.")
             else:
                 st.error("❌ **SALAH!** Anda terjebak rekayasa sosial pelaku.")
@@ -1545,7 +1559,10 @@ else:
         st.markdown("### 📊 Rapor Batch 4: Evaluasi Materi 13-16 (Takeover Akun & Authentication)")
         st.write("Selamat menyelesaikan Batch 4! Berikut adalah hasil evaluasi Anda untuk materi 13-16 tentang perlindungan akun dan autentikasi ganda:")
         
-        skor_b4 = sum([1 for m_id in ["m13", "m14", "m15", "m16"] if st.session_state.jawaban_user.get(m_id) == KUNCI_MATERI[m_id]])
+        skor_b4 = sum([
+            1 for m_id in ["m13", "m14", "m15", "m16"]
+            if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m_id)) == normalisasi_teks_jawaban(KUNCI_MATERI[m_id])
+        ])
         salah_b4 = 4 - skor_b4
         
         conn = sqlite3.connect("gardadigital.db")
@@ -1607,7 +1624,10 @@ else:
     elif st.session_state.halaman_sekarang == 6:
         st.markdown("### 📊 Rapor Evaluasi: Pembatasan Batch 1 (Materi 1 - 4)")
         
-        skor_b1 = sum([1 for m_id in ["m1", "m2", "m3", "m4"] if st.session_state.jawaban_user.get(m_id) == KUNCI_MATERI[m_id]])
+        skor_b1 = sum([
+            1 for m_id in ["m1", "m2", "m3", "m4"]
+            if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m_id)) == normalisasi_teks_jawaban(KUNCI_MATERI[m_id])
+        ])
         salah_b1 = 4 - skor_b1
         
         conn = sqlite3.connect("gardadigital.db")
@@ -1674,7 +1694,7 @@ else:
         
         skor_komulatif = 0
         for m_id in ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8"]:
-            if st.session_state.jawaban_user.get(m_id) == KUNCI_MATERI[m_id]:
+            if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m_id)) == normalisasi_teks_jawaban(KUNCI_MATERI[m_id]):
                 skor_komulatif += 1
         salah_komulatif = 8 - skor_komulatif
 
@@ -1745,7 +1765,7 @@ else:
         # 1. HITUNG SKOR KOMULATIF NYATA (TOTAL DARI 12 MATERI YANG SUDAH DIBUKA)
         skor_komulatif = 0
         for m_id in ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12"]:
-            if st.session_state.jawaban_user.get(m_id) == KUNCI_MATERI[m_id]:
+            if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m_id)) == normalisasi_teks_jawaban(KUNCI_MATERI[m_id]):
                 skor_komulatif += 1
         salah_komulatif = 12 - skor_komulatif
 
@@ -1787,7 +1807,10 @@ else:
         
         # 3. LOGIKA KELULUSAN BATCH 3 MUTLAK
         # Pengguna wajib benar minimal pada materi Batch 3 (M9, M10, M11, M12) and total skor komulatif bernilai bagus
-        skor_b3_murni = sum([1 for m_id in ["m9", "m10", "m11", "m12"] if st.session_state.jawaban_user.get(m_id) == KUNCI_MATERI[m_id]])
+        skor_b3_murni = sum([
+            1 for m_id in ["m9", "m10", "m11", "m12"]
+            if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m_id)) == normalisasi_teks_jawaban(KUNCI_MATERI[m_id])
+        ])
         
         if skor_b3_murni == 4:
             st.success(f"👑 **STATUS EVALUASI BATCH 3: LULUS TOTAL (4/4 BENAR BATCH 3)**\n\nSelamat, {st.session_state.user_email}! Anda berhasil menjinakkan seluruh skenario manipulasi berita hoaks massal and jebakan skema Ponzi. Gerbang Materi Lanjutan resmi terbuka!")
@@ -1835,7 +1858,7 @@ else:
         # 1. HITUNG SKOR KOMULATIF LENGKAP (TOTAL DARI 20 MATERI)
         skor_komulatif = 0
         for m_id in ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16", "m17", "m18", "m19", "m20"]:
-            if st.session_state.jawaban_user.get(m_id) == KUNCI_MATERI[m_id]:
+            if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m_id)) == normalisasi_teks_jawaban(KUNCI_MATERI[m_id]):
                 skor_komulatif += 1
         salah_komulatif = 20 - skor_komulatif
 
@@ -1884,11 +1907,26 @@ else:
         # 3. BREAKDOWN SKOR PER BATCH
         st.markdown("#### 📈 Rincian Skor Per Batch Pelatihan:")
         batch_scores = {
-            "Batch 1 (M1-4): Social Engineering Dasar": sum([1 for m in ["m1", "m2", "m3", "m4"] if st.session_state.jawaban_user.get(m) == KUNCI_MATERI.get(m)]),
-            "Batch 2 (M5-8): File APK & Malware": sum([1 for m in ["m5", "m6", "m7", "m8"] if st.session_state.jawaban_user.get(m) == KUNCI_MATERI.get(m)]),
-            "Batch 3 (M9-12): Hoaks & Penipuan Investasi": sum([1 for m in ["m9", "m10", "m11", "m12"] if st.session_state.jawaban_user.get(m) == KUNCI_MATERI.get(m)]),
-            "Batch 4 (M13-16): Takeover & Authentication": sum([1 for m in ["m13", "m14", "m15", "m16"] if st.session_state.jawaban_user.get(m) == KUNCI_MATERI.get(m)]),
-            "Batch 5 (M17-20): Infrastruktur & Governance": sum([1 for m in ["m17", "m18", "m19", "m20"] if st.session_state.jawaban_user.get(m) == KUNCI_MATERI.get(m)])
+            "Batch 1 (M1-4): Social Engineering Dasar": sum([
+                1 for m in ["m1", "m2", "m3", "m4"]
+                if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m)) == normalisasi_teks_jawaban(KUNCI_MATERI.get(m))
+            ]),
+            "Batch 2 (M5-8): File APK & Malware": sum([
+                1 for m in ["m5", "m6", "m7", "m8"]
+                if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m)) == normalisasi_teks_jawaban(KUNCI_MATERI.get(m))
+            ]),
+            "Batch 3 (M9-12): Hoaks & Penipuan Investasi": sum([
+                1 for m in ["m9", "m10", "m11", "m12"]
+                if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m)) == normalisasi_teks_jawaban(KUNCI_MATERI.get(m))
+            ]),
+            "Batch 4 (M13-16): Takeover & Authentication": sum([
+                1 for m in ["m13", "m14", "m15", "m16"]
+                if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m)) == normalisasi_teks_jawaban(KUNCI_MATERI.get(m))
+            ]),
+            "Batch 5 (M17-20): Infrastruktur & Governance": sum([
+                1 for m in ["m17", "m18", "m19", "m20"]
+                if normalisasi_teks_jawaban(st.session_state.jawaban_user.get(m)) == normalisasi_teks_jawaban(KUNCI_MATERI.get(m))
+            ])
         }
         
         for batch_name, batch_score in batch_scores.items():
