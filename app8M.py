@@ -808,7 +808,7 @@ if st.session_state.profile_saved_notification:
 # 5. 👉 DASBOR PROFIL IDENTITAS PREMIUM (MENAMPILKAN NAMA, INSTITUSI, EMAIL, NO HP) - SEBELUM MODUL
 if st.session_state.login_sukses:
     # 👉 TARUH DI BARIS UTAMA SETELAH LOGIN SUKSES AGAR TERKUNCI DI SEMUA MATERI DAN SIDEBAR
-st.markdown(
+    st.markdown(
     """
     <style>
         /* 1. Pembersihan Batas Atas Lembar Web */
