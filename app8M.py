@@ -221,23 +221,23 @@ def render_brand_header(width=220, subtitle_color="#3A3A3A"):
                 min-height: 2.75rem !important;
             }
             
-                        /* 📊 KUNCI MATEMATIKA TEKS LURUS: Memaksa teks stands emoji turun total stands center-aligned 100% */
+                        /* 📊 KUNCI PRESET PREMIUM: Memaksa teks stands emoji turun total stands center-aligned 100% di semua HP */
             .stButton > button {
                 display: flex !important;
-                align-items: center !important;         /* Tarik vertikal ke tengah */
-                justify-content: center !important;       /* Tarik horizontal ke tengah */
+                align-items: center !important;         /* 🔄 Menyeret teks tepat ke TENGAH-TENGAH secara vertikal */
+                justify-content: center !important;       /* 🔄 Menyeret teks tepat ke TENGAH-TENGAH secara horizontal */
                 text-align: center !important;
                 
-                /* 👉 FORMULA UTAMA: Menyamakan tinggi kotak dengan tinggi baris teks agar teks turun otomatis */
-                height: 48px !important;                 
-                line-height: 48px !important;            
-                
-                /* 👉 RESET PADDING: Menghilangkan sisa padding kaku Streamlit yang mencekik teks ke atas */
-                padding-top: 0px !important;             
-                padding-bottom: 0px !important;          
+                /* 👉 RESET DAN PENYEMBUH: Memberikan ruang napas atas-bawah yang benar-benar sama (Simetris) */
+                min-height: 48px !important;
+                height: auto !important;
+                padding-top: 14px !important;            /* Jarak atas empuk */
+                padding-bottom: 14px !important;         /* Jarak bawah empuk yang sama persis agar teks anti-melorot ke atas */
                 padding-left: 16px !important;
                 padding-right: 16px !important;
                 
+                /* Mengembalikan fungsi baris teks agar mengalir natural mengalir */
+                line-height: normal !important;          
                 font-size: 15px !important;
                 font-weight: 600 !important;
                 border-radius: 6px !important;
