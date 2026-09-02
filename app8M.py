@@ -221,40 +221,37 @@ def render_brand_header(width=220, subtitle_color="#3A3A3A"):
                 min-height: 2.75rem !important;
             }
             
-                        /* 📊 1. Kunci Utama Tombol Biasa yang Sudah Sukses Ramping (Biarkan Tetap Utuh) */
-            .stButton > button {
-                height: 42px !important;
-                min-height: 42px !important;
-                padding: 0px 16px !important;
+                        /* 📊 KUNCI UTAMA: Merampingkan Tombol Abu-abu & Tombol Orange (Primary) Sekaligus Secara Mutlak */
+            .stButton > button, 
+            .stButton > button[data-baseweb="button"] {
+                height: 40px !important;                 /* Mengunci tinggi tombol agar ramping ideal di HP */
+                min-height: 40px !important;
+                max-height: 40px !important;
+                padding-top: 0px !important;             /* Matikan semua padding bengkak bawaan */
+                padding-bottom: 0px !important;
+                padding-left: 16px !important;
+                padding-right: 16px !important;
                 display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
+                align-items: center !important;         /* Seret teks tepat ke tengah vertikal */
+                justify-content: center !important;       /* Seret teks tepat ke tengah horizontal */
                 border-radius: 6px !important;
-            }
-            .stButton > button p, .stButton > button span, .stButton > button div {
-                margin: 0 !important;
-                padding: 0 !important;
                 line-height: 1 !important;
-                display: inline-block !important;
-                vertical-align: middle !important;
-                font-size: 14px !important;
-                font-weight: 600 !important;
             }
 
-            /* 🎯 2. SUNTIKAN BARU: MERAMPINGKAN & MERATAKAN TENGAH TEKS PILIHAN MATERI KUIS (ST.RADIO) */
-            [data-testid="stRadio"] label {
-                padding-top: 6px !important;          /* Memotong padding gendut bawaan Streamlit Mobile */
-                padding-bottom: 6px !important;
-                min-height: auto !important;
-            }
-            
-            /* Menyerang teks paragraf di dalam pilihan ganda kuis agar turun pas di tengah */
-            [data-testid="stRadio"] [data-testid="stMarkdownContainer"] p {
+            /* 🎯 JURUS PENYELARAS TEKS: Memaksa teks di dalam tombol orange/abu-abu turun stands center-aligned */
+            .stButton > button p, 
+            .stButton > button span, 
+            .stButton > button div,
+            .stButton > button[data-baseweb="button"] p,
+            .stButton > button[data-baseweb="button"] span {
                 margin: 0 !important;
-                padding-top: 2px !important;           /* Dorongan mikro agar teks turun stands center-aligned vertikal */
-                line-height: 1.3 !important;           /* Menjaga keterbacaan kalimat panjang di HP tetap rapi */
-                vertical-align: middle !important;
+                padding: 0 !important;
+                line-height: 1 !important;              /* Memaksa tinggi baris teks seimbang */
+                display: inline-flex !important;
+                align-items: center !important;         /* Rata tengah vertikal mutlak */
+                justify-content: center !important;
                 font-size: 14px !important;
+                font-weight: 600 !important;
             }
         </style>
         """,
