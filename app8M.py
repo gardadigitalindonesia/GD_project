@@ -221,35 +221,31 @@ def render_brand_header(width=220, subtitle_color="#3A3A3A"):
                 min-height: 2.75rem !important;
             }
             
-                        /* 📊 KUNCI UTAMA: Merampingkan Tombol Abu-abu & Tombol Orange (Primary) Sekaligus Secara Mutlak */
+                        /* 📊 KUNCI UTAMA: Merampingkan Kotak Tombol Utama & Oranye (Primary) */
             .stButton > button, 
-            .stButton > button[data-baseweb="button"] {
+            .stButton > button[data-baseweb="button"],
+            div[data-testid="stButton"] > button {
                 height: 40px !important;                 /* Mengunci tinggi tombol agar ramping ideal di HP */
                 min-height: 40px !important;
                 max-height: 40px !important;
-                padding-top: 0px !important;             /* Matikan semua padding bengkak bawaan */
-                padding-bottom: 0px !important;
-                padding-left: 16px !important;
-                padding-right: 16px !important;
-                display: flex !important;
-                align-items: center !important;         /* Seret teks tepat ke tengah vertikal */
-                justify-content: center !important;       /* Seret teks tepat ke tengah horizontal */
+                padding: 0px 16px !important;            /* Hancurkan seluruh padding bawaan kontainer */
+                display: inline-flex !important;
+                align-items: center !important;         /* Tarik paksa ke tengah vertikal */
+                justify-content: center !important;       /* Tarik paksa ke tengah horizontal */
                 border-radius: 6px !important;
-                line-height: 1 !important;
+                border: none !important;
             }
 
-            /* 🎯 JURUS PENYELARAS TEKS: Memaksa teks di dalam tombol orange/abu-abu turun stands center-aligned */
-            .stButton > button p, 
-            .stButton > button span, 
-            .stButton > button div,
-            .stButton > button[data-baseweb="button"] p,
-            .stButton > button[data-baseweb="button"] span {
+            /* 🎯 JURUS SAPU BERSIH UNIVERSAL: Memaksa ELEMEN APA PUN di dalam tombol untuk rata tengah mutlak */
+            .stButton > button *, 
+            div[data-testid="stButton"] > button * {
                 margin: 0 !important;
                 padding: 0 !important;
-                line-height: 1 !important;              /* Memaksa tinggi baris teks seimbang */
+                line-height: 1 !important;              /* Matikan tinggi baris kaku penyebab melar */
                 display: inline-flex !important;
                 align-items: center !important;         /* Rata tengah vertikal mutlak */
                 justify-content: center !important;
+                vertical-align: middle !important;
                 font-size: 14px !important;
                 font-weight: 600 !important;
             }
