@@ -221,26 +221,28 @@ def render_brand_header(width=220, subtitle_color="#3A3A3A"):
                 min-height: 2.75rem !important;
             }
             
-                        /* 📊 KUNCI PRESET PREMIUM: Memaksa teks stands emoji turun total stands center-aligned 100% di semua HP */
+                        /* 📊 KUNCI UTAMA: Mengunci tinggi tombol agar ramping & meratakan teks di tengah */
             .stButton > button {
+                height: 42px !important;                 /* Mengunci tinggi tombol agar tetap ramping dan tidak gendut */
+                min-height: 42px !important;
+                padding: 0px 16px !important;            /* Mematikan padding atas-bawah kaku penyebab bengkak */
                 display: flex !important;
-                align-items: center !important;         /* 🔄 Menyeret teks tepat ke TENGAH-TENGAH secara vertikal */
-                justify-content: center !important;       /* 🔄 Menyeret teks tepat ke TENGAH-TENGAH secara horizontal */
-                text-align: center !important;
-                
-                /* 👉 RESET DAN PENYEMBUH: Memberikan ruang napas atas-bawah yang benar-benar sama (Simetris) */
-                min-height: 48px !important;
-                height: auto !important;
-                padding-top: 14px !important;            /* Jarak atas empuk */
-                padding-bottom: 14px !important;         /* Jarak bawah empuk yang sama persis agar teks anti-melorot ke atas */
-                padding-left: 16px !important;
-                padding-right: 16px !important;
-                
-                /* Mengembalikan fungsi baris teks agar mengalir natural mengalir */
-                line-height: normal !important;          
-                font-size: 15px !important;
-                font-weight: 600 !important;
+                align-items: center !important;
+                justify-content: center !important;
                 border-radius: 6px !important;
+            }
+
+            /* 🎯 JURUS PAMUNGKAS: Menyerang teks bagian dalam agar turun pas di tengah vertikal */
+            .stButton > button p, 
+            .stButton > button span,
+            .stButton > button div {
+                margin: 0 !important;
+                padding: 0 !important;
+                line-height: 1 !important;              /* Memaksa tinggi baris teks seimbang */
+                display: inline-block !important;
+                vertical-align: middle !important;       /* Memaksa teks rata tengah secara vertikal */
+                font-size: 14px !important;
+                font-weight: 600 !important;
             }
         </style>
         """,
