@@ -221,21 +221,27 @@ def render_brand_header(width=220, subtitle_color="#3A3A3A"):
                 min-height: 2.75rem !important;
             }
             
-                        /* 📊 KUNCI PRESET PREMIUM: Memaksa teks tombol turun lagi ke bawah stands lurus di tengah vertikal */
+                        /* 📊 KUNCI MATEMATIKA TEKS LURUS: Memaksa teks stands emoji turun total stands center-aligned 100% */
             .stButton > button {
-                display: inline-flex !important;
-                align-items: center !important;         /* Teks tegak lurus di tengah vertikal */
-                justify-content: center !important;       /* Teks and emoji tepat di tengah horizontal */
+                display: flex !important;
+                align-items: center !important;         /* Tarik vertikal ke tengah */
+                justify-content: center !important;       /* Tarik horizontal ke tengah */
                 text-align: center !important;
-                line-height: 1 !important;               /* Matikan tinggi baris kaku bawaan */
-                min-height: 48px !important;             /* Tinggi tombol sedikit dinaikkan agar ruang lebih lapang */
-                padding-top: 16px !important;            /* 🔄 Jarak atas dinaikkan dari 12px ke 16px agar teks terdorong ke bawah */
-                padding-bottom: 14px !important;         /* Ruang napas bawah penyeimbang */
+                
+                /* 👉 FORMULA UTAMA: Menyamakan tinggi kotak dengan tinggi baris teks agar teks turun otomatis */
+                height: 48px !important;                 
+                line-height: 48px !important;            
+                
+                /* 👉 RESET PADDING: Menghilangkan sisa padding kaku Streamlit yang mencekik teks ke atas */
+                padding-top: 0px !important;             
+                padding-bottom: 0px !important;          
+                padding-left: 16px !important;
+                padding-right: 16px !important;
+                
                 font-size: 15px !important;
                 font-weight: 600 !important;
                 border-radius: 6px !important;
             }
-
         </style>
         """,
         unsafe_allow_html=True
