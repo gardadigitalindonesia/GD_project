@@ -1659,40 +1659,13 @@ else:
 
         col_t1, col_t2, col_t3 = st.columns([1, 2, 1])
         with col_t2:
-                       # 👉 STRUKTUR PIZZA MIKRO PREMIUM: AKURASI JAWABAN BATCH 4 (M13-16)
-            # Efek explode otomatis aktif (0.12) memisahkan potongan jika ada jawaban salah
-            efek_explode = (0, 0.12) if salah_b4 > 0 else (0, 0)
-            
-            # Mengunci ukuran canvas mikro (2.2, 2.2) agar ramping dan pas di tengah HP/PC
-            fig_b4, ax_b4 = plt.subplots(figsize=(2.2, 2.2), facecolor='none')
+            st.markdown("<p style='text-align: center; font-weight: bold; font-size:13px;'>🎯 Grafik Akurasi Jawaban Batch 4 (M13-16)</p>", unsafe_allow_html=True)
+            fig_b4, ax_b4 = plt.subplots(figsize=(3, 3))
+            ax_b4.pie([skor_b4, salah_b4], labels=[f"Aman ({skor_b4})", f"Celah ({salah_b4})"], colors=['#2ECC71', '#E74C3C'], autopct='%1.1f%%', startangle=90, textprops={'color':"white", 'fontsize':8})
+            ax_b4.axis('equal')
             fig_b4.patch.set_alpha(0)
             ax_b4.set_facecolor('none')
-            
-            # Menggambar grafik pizza Batch 4 menggunakan variabel asli skor_b4 & salah_b4 Anda
-            wedges, texts, autotexts = ax_b4.pie(
-                [skor_b4, salah_b4], 
-                explode=efek_explode, 
-                labels=[f"Aman ({skor_b4})", f"Celah ({salah_b4})"], 
-                colors=['#2ECC71', '#E74C3C'], 
-                autopct='%1.0f%%', 
-                shadow=True, 
-                startangle=140,
-                textprops=dict(color="#2C3E50", weight="bold", size=8.5)
-            )
-            
-            # Mempercantik font persentase putih di dalam lingkaran pizza
-            for autotext in autotexts:
-                autotext.set_color('white')
-                autotext.set_size(8.5)
-                
-            ax_b4.axis('equal') 
-            
-            # Render grafik secara aman ke Streamlit tanpa meluber atau meregang otomatis
-            st.pyplot(fig_b4, clear_figure=True, use_container_width=False)
-            
-            import matplotlib.pyplot as plt
-            plt.close(fig_b4)
-
+            st.pyplot(fig_b4)
 
         st.markdown("---")
         if skor_b4 == 4:
@@ -1751,39 +1724,13 @@ else:
 
         col_t1, col_t2, col_t3 = st.columns([1, 2, 1])
         with col_t2:
-                # 👉 PRESET MIKRO PREMIUM: Grafik dikecilkan, label dirampingkan, anti-meler
-            efek_explode = (0, 0.12) if salah_b1 > 0 else (0, 0)
-        
-        # 1. 🔄 PERBAIKAN: Mengecilkan ukuran canvas dasar dari (3, 3) menjadi (2.2, 2.2)
-            fig1, ax1 = plt.subplots(figsize=(2.2, 2.2), facecolor='none')
+            st.markdown("<p style='text-align: center; font-weight: bold; font-size:13px;'>🎯 Grafik Akurasi Jawaban Batch 1</p>", unsafe_allow_html=True)
+            fig1, ax1 = plt.subplots(figsize=(3, 3))
+            ax1.pie([skor_b1, salah_b1], labels=[f"Aman ({skor_b1})", f"Celah ({salah_b1})"], colors=['#2ECC71', '#E74C3C'], autopct='%1.1f%%', startangle=90, textprops={'color':"white", 'fontsize':8})
+            ax1.axis('equal')
+            fig1.patch.set_alpha(0)
             ax1.set_facecolor('none')
-        
-        # 2. Menggambar grafik pizza ramping
-        wedges, texts, autotexts = ax1.pie(
-            [skor_b1, salah_b1], 
-            explode=efek_explode, 
-            labels=[f"Aman ({skor_b1})", f"Celah ({salah_b1})"], 
-            colors=['#2ECC71', '#E74C3C'], 
-            autopct='%1.0f%%', 
-            shadow=True, 
-            startangle=140,
-            # 🔄 PERBAIKAN: Mengecilkan font teks luar (Aman/Celah) menjadi 8.5pt agar manis
-            textprops=dict(color="#2C3E50", weight="bold", size=8.5)
-        )
-        
-        # 3. 🔄 PERBAIKAN: Mengecilkan font persentase putih di dalam lingkaran menjadi 8.5pt
-        for autotext in autotexts:
-            autotext.set_color('white')
-            autotext.set_size(8.5)
-            
-        ax1.axis('equal') 
-        
-        # Kunci ukuran agar tetap proporsional dan tidak meregang otomatis
-        st.pyplot(fig1, clear_figure=True, use_container_width=False)
-        
-        import matplotlib.pyplot as plt
-        plt.close(fig1)
-
+            st.pyplot(fig1)
 
         st.markdown("---")
         if skor_b1 == 4:
@@ -1849,40 +1796,13 @@ else:
 
         col_tengah1, col_tengah2, col_tengah3 = st.columns([1, 2, 1])
         with col_tengah2:
-                    # 👉 STRUKTUR PIZZA MIKRO PREMIUM: AKURASI KOMULATIV (MATERI 1 - 8)
-            # Efek explode otomatis mencuat jika ada celah jawaban yang salah
-                efek_explode = (0, 0.12) if salah_komulatif > 0 else (0, 0)
-            
-            # Membuat ukuran kanvas mikro (2.2, 2.2) agar ramping dan tidak meluber
-                fig_final, ax_final = plt.subplots(figsize=(2.2, 2.2), facecolor='none')
-                fig_final.patch.set_alpha(0)
-                ax_final.set_facecolor('none')
-            
-            # Menggambar grafik pizza menggunakan variabel skor_komulatif & salah_komulatif Anda
-                wedges, texts, autotexts = ax_final.pie(
-                [skor_komulatif, salah_komulatif], 
-                explode=efek_explode, 
-                labels=[f"Aman ({skor_komulatif})", f"Celah ({salah_komulatif})"], 
-                colors=['#2ECC71', '#E74C3C'], 
-                autopct='%1.0f%%', 
-                shadow=True, 
-                startangle=140,
-                textprops=dict(color="#2C3E50", weight="bold", size=8.5)
-            )
-            
-            # Mempercantik font persentase putih di dalam lingkaran
-                for autotext in autotexts:
-                    autotext.set_color('white')
-                    autotext.set_size(8.5)
-                
-                ax_final.axis('equal') 
-            
-            # Render grafik secara aman ke Streamlit tanpa meregang lebar penuh
-                st.pyplot(fig_final, clear_figure=True, use_container_width=False)
-            
-                import matplotlib.pyplot as plt
-                plt.close(fig_final)
-
+            st.markdown("<p style='text-align: center; font-weight: bold; font-size:14px;'>🎯 Grafik Akurasi Komulatif (Materi 1 - 8)</p>", unsafe_allow_html=True)
+            fig_final, ax_final = plt.subplots(figsize=(3, 3))
+            ax_final.pie([skor_komulatif, salah_komulatif], labels=[f"Aman ({skor_komulatif})", f"Celah ({salah_komulatif})"], colors=['#2ECC71', '#E74C3C'], autopct='%1.1f%%', startangle=90, textprops={'color':"white", 'fontsize':8})
+            ax_final.axis('equal')
+            fig_final.patch.set_alpha(0)
+            ax_final.set_facecolor('none')
+            st.pyplot(fig_final)
 
         st.markdown("---")
         if skor_komulatif == 8:
@@ -1956,40 +1876,13 @@ else:
         # 2. VISUALISASI SATU PIE CHART BESAR DI TENGAH (KONSISTEN SUPER BERSIH)
         col_tengah1, col_tengah2, col_tengah3 = st.columns([1, 2, 1])
         with col_tengah2:
-            # 👉 STRUKTUR PIZZA MIKRO PREMIUM: AKURASI KOMULATIF KELAS (MATERI 1 - 12)
-            # Efek explode otomatis mencuat jika ada celah jawaban yang salah
-                efek_explode = (0, 0.12) if salah_komulatif > 0 else (0, 0)
-            
-            # Membuat ukuran kanvas mikro (2.2, 2.2) agar ramping dan tidak meluber
-                fig_b3, ax_b3 = plt.subplots(figsize=(2.2, 2.2), facecolor='none')
-                fig_b3.patch.set_alpha(0)
-                ax_b3.set_facecolor('none')
-            
-            # Menggambar grafik pizza menggunakan variabel skor_komulatif & salah_komulatif Anda
-                wedges, texts, autotexts = ax_b3.pie(
-                    [skor_komulatif, salah_komulatif], 
-                    explode=efek_explode, 
-                    labels=[f"Aman ({skor_komulatif})", f"Celah ({salah_komulatif})"], 
-                    colors=['#2ECC71', '#E74C3C'], 
-                    autopct='%1.0f%%', 
-                    shadow=True, 
-                    startangle=140,
-                    textprops=dict(color="#2C3E50", weight="bold", size=8.5)
-                )
-            
-            # Mempercantik font persentase putih di dalam lingkaran
-                for autotext in autotexts:
-                    autotext.set_color('white')
-                    autotext.set_size(8.5)
-                
-                ax_b3.axis('equal') 
-            
-            # Render grafik secara aman ke Streamlit tanpa meregang lebar penuh
-                st.pyplot(fig_b3, clear_figure=True, use_container_width=False)
-            
-                import matplotlib.pyplot as plt
-                plt.close(fig_b3)
-
+            st.markdown("<p style='text-align: center; font-weight: bold; font-size:14px;'>🎯 Grafik Akurasi Komulatif Kelas (Materi 1 - 12)</p>", unsafe_allow_html=True)
+            fig_b3, ax_b3 = plt.subplots(figsize=(3, 3))
+            ax_b3.pie([skor_komulatif, salah_komulatif], labels=[f"Aman ({skor_komulatif})", f"Celah ({salah_komulatif})"], colors=['#2ECC71', '#E74C3C'], autopct='%1.1f%%', startangle=90, textprops={'color':"white", 'fontsize':8})
+            ax_b3.axis('equal')
+            fig_b3.patch.set_alpha(0)
+            ax_b3.set_facecolor('none')
+            st.pyplot(fig_b3)
 
         st.markdown("---")
         
@@ -2078,44 +1971,17 @@ else:
         with col_m5: st.metric("Remidi B5", f"{r5} Kali")
         st.markdown("---")
 
-                    # 👉 DEKLARASI WARNA DINAMIS MANDIRI BATCH 5 (ANTI-NAMEERROR)
-        colors_pie = ['#27AE60', '#E74C3C'] if skor_komulatif >= 18 else ['#F39C12', '#E74C3C'] if skor_komulatif >= 15 else ['#E74C3C', '#95A5A6']
-
-        # 👉 STRUKTUR PIZZA MIKRO PREMIUM BATCH 5 FINAL (20 MATERI LENGKAP)
-        # Efek explode otomatis aktif (0.12) memisahkan potongan jika ada jawaban salah
-        efek_explode = (0, 0.12) if salah_komulatif > 0 else (0, 0)
-            
-        # Mengunci ukuran canvas mikro (2.2, 2.2) agar ramping dan pas di tengah HP/PC
-        fig_final, ax_final = plt.subplots(figsize=(2.2, 2.2), facecolor='none')
-        fig_final.patch.set_alpha(0)
-        ax_final.set_facecolor('none')
-            
-            # Menggambar grafik pizza final interaktif dengan warna dinamis bawaan laptop Anda
-        wedges, texts, autotexts = ax_final.pie(
-            [skor_komulatif, salah_komulatif], 
-            explode=efek_explode, 
-            labels=[f"Benar ({skor_komulatif}/20)", f"Salah ({salah_komulatif}/20)"], 
-            colors=colors_pie, 
-            autopct='%1.0f%%', 
-            shadow=True, 
-            startangle=140,
-            textprops=dict(color="#2C3E50", weight="bold", size=8.5)
-        )
-            
-            # Mempercantik font persentase putih di dalam lingkaran pizza
-        for autotext in autotexts:
-            autotext.set_color('white')
-            autotext.set_size(8.5)
-                
-        ax_final.axis('equal') 
-            
-            # Render grafik secara aman ke Streamlit tanpa meluber atau meregang otomatis
-        st.pyplot(fig_final, clear_figure=True, use_container_width=False)
-            
-        import matplotlib.pyplot as plt
-        plt.close(fig_final)
-
-
+        # 2. VISUALISASI PIE CHART BESAR DI TENGAH
+        col_tengah1, col_tengah2, col_tengah3 = st.columns([1, 2, 1])
+        with col_tengah2:
+            st.markdown("<p style='text-align: center; font-weight: bold; font-size:14px;'>🎯 Grafik Akurasi Komulatif: Seluruh Kurikulum Modul 1 (20 Materi Lengkap)</p>", unsafe_allow_html=True)
+            fig_final, ax_final = plt.subplots(figsize=(3.5, 3.5))
+            colors_pie = ['#27AE60', '#E74C3C'] if skor_komulatif >= 18 else ['#F39C12', '#E74C3C'] if skor_komulatif >= 15 else ['#E74C3C', '#95A5A6']
+            ax_final.pie([skor_komulatif, salah_komulatif], labels=[f"Benar ({skor_komulatif}/20)", f"Salah ({salah_komulatif}/20)"], colors=colors_pie, autopct='%1.1f%%', startangle=90, textprops={'color':"white", 'fontsize':10, 'weight':'bold'})
+            ax_final.axis('equal')
+            fig_final.patch.set_alpha(0)
+            ax_final.set_facecolor('none')
+            st.pyplot(fig_final)
 
         st.markdown("---")
         
