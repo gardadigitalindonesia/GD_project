@@ -1151,17 +1151,43 @@ if st.session_state.login_sukses and st.session_state.intip_rapor_global:
     total_materi_selesai = len(st.session_state.materi_selesai)
     total_materi_sisa = 20 - total_materi_selesai
     
-    st.markdown(f"#### Progress Kelengkapan Kelas: **{total_materi_selesai} dari 20 Materi Selesai**")
+    st.markdown(f"#### Progress Penyelesaian Modul 1: **{total_materi_selesai} dari 20 Materi Selesai**")
     st.progress(total_materi_selesai / 20)
     
-    col_g1, col_g2, col_g3 = st.columns([1, 2, 1])
+    # FORMAT PIZZA MIKRO PREMIUM RAMPING - RATAN TENGAH (CENTERED)
+    col_g1, col_g2, col_g3 = st.columns([1, 2.2, 1])
     with col_g2:
-        fig_g, ax_g = plt.subplots(figsize=(3, 3))
-        ax_g.pie([total_materi_selesai, total_materi_sisa], labels=["Selesai", "Sisa Materi"], colors=['#2ECC71', '#555555'], autopct='%1.0f%%', startangle=90, textprops={'color':"white", 'fontsize':8})
+            # Mengunci ukuran mikro premium agar pas di HP
+        fig_g, ax_g = plt.subplots(figsize=(2.2, 2.2))
+            
+            # Selesai = Aman (Hijau #2ECC71), Sisa = Celah (Merah #E74C3C)
+        slices = [total_materi_selesai, total_materi_sisa]
+        labels = [f"Sudah Dikerjakan ({total_materi_selesai})", f"Belum Dikerjakan ({total_materi_sisa})"]
+        colors = ['#2ECC71', '#E74C3C']
+            
+            # Efek potongan Celah (Merah) mencuat keluar jika ada sisa materi
+        explode = [0, 0.12] if total_materi_sisa > 0 else [0, 0]
+            
+            # Render grafik pie dengan bayangan 3D dan teks tebal (bold)
+        ax_g.pie(
+            slices, 
+            labels=labels, 
+            colors=colors, 
+            explode=explode, 
+            autopct='%1.0f%%', 
+            startangle=90, 
+            shadow=True,
+            textprops={'fontsize': 8.5, 'color': '#2C3E50', 'weight': 'bold'}
+        )
+            
         ax_g.axis('equal')
         fig_g.patch.set_alpha(0)
         ax_g.set_facecolor('none')
         st.pyplot(fig_g)
+
+
+
+
         
     st.markdown("---")
     if st.button("⬅️ Kembali Melanjutkan Pembelajaran Materi", type="primary", use_container_width=True):
